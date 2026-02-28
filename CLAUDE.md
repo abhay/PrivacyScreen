@@ -9,20 +9,29 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Build & Test Commands
 
 ```bash
-# Build the library
-swift build
+# Build the library (iOS-only frameworks — must target iOS SDK)
+swift build --sdk "$(xcrun --sdk iphonesimulator --show-sdk-path)" \
+  -Xswiftc "-target" -Xswiftc "arm64-apple-ios17.0-simulator"
 
-# Run unit tests (ThreatState logic tests)
-swift test
+# Run unit tests via xcodebuild (swift test alone won't resolve iOS frameworks)
+xcodebuild test -scheme PrivacyScreen \
+  -destination 'platform=iOS Simulator,name=iPhone 16' -quiet
 
 # Run a single test
-swift test --filter ThreatStateTests/testSpecificCase
+xcodebuild test -scheme PrivacyScreen \
+  -destination 'platform=iOS Simulator,name=iPhone 16' \
+  -only-testing PrivacyScreenTests/ThreatStateTests/testName
 
-# Build VaultDemo (requires Xcode, device-only for ARKit)
-xcodebuild -project Example/VaultDemo/VaultDemo.xcodeproj -scheme VaultDemo -destination 'platform=iOS,name=<DeviceName>' build
+# Build VaultDemo for simulator
+xcodebuild build -project Example/VaultDemo/VaultDemo.xcodeproj \
+  -scheme VaultDemo -destination 'platform=iOS Simulator,name=iPhone 16' -quiet
+
+# Install and launch on simulator
+xcrun simctl install booted path/to/VaultDemo.app
+xcrun simctl launch booted com.vaultdemo.app
 ```
 
-Note: ARFaceTrackingConfiguration requires a physical device with TrueDepth camera (iPhone X+). The library gracefully falls back to accelerometer-only mode on simulator/unsupported devices.
+ARFaceTrackingConfiguration requires a physical device with TrueDepth camera (iPhone X+). The app runs on simulator but falls back to accelerometer-only mode (face detection disabled, tilt still works). Use Settings > "Simulate Threat" to test the full privacy overlay on simulator.
 
 ## Architecture
 
@@ -41,7 +50,7 @@ ARKit face anchors + CMMotionManager data
     → PrivacyShieldOverlay (full lockdown at .locked)
 ```
 
-### ThreatState scoring (pure value type — the only unit-tested component)
+### ThreatState scoring (pure value type — 29 tests using Swift Testing)
 
 - `secondFaceDetected` → instant `.locked`
 - `deviceTiltRate > 120°/s` → instant `.locked` (snatch detection)
@@ -86,6 +95,8 @@ ALERT   (180mW)→ same as active, locked until threat clears + 5s cooldown
 ## VaultDemo Design
 
 Premium dark-themed finance app (Mercury/Revolut-inspired). Base color `#0A0A0F`, SF Pro Rounded for large numbers, SF Symbols throughout. All data is hardcoded — no networking, persistence, or real data. The purpose is demonstrating the privacy library on realistic-looking financial UI.
+
+Key wiring: both `PrivacyManager` and `PowerThrottler` are injected as `@EnvironmentObject` from `VaultDemoApp`. Views use `VaultTheme` constants and the `.vaultCard()` modifier for consistent styling. Tests use Swift Testing (`@Test`, `#expect`, `@Suite`) not XCTest.
 
 ## Scope Boundaries
 
