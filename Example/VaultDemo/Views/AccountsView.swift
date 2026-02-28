@@ -19,13 +19,16 @@ struct AccountsView: View {
     }
 
     private func accountCard(_ account: Account) -> some View {
-        VStack(alignment: .leading, spacing: 16) {
+        VStack(alignment: .leading, spacing: VaultTheme.paddingMedium) {
             HStack {
                 Image(systemName: account.icon)
                     .font(.system(size: 22, weight: .medium))
                     .foregroundStyle(VaultTheme.accent)
                     .frame(width: 48, height: 48)
-                    .background(VaultTheme.accent.opacity(0.12), in: RoundedRectangle(cornerRadius: 12))
+                    .background(
+                        VaultTheme.accent.opacity(0.12),
+                        in: RoundedRectangle(cornerRadius: VaultTheme.cornerRadiusSmall)
+                    )
 
                 VStack(alignment: .leading, spacing: 2) {
                     Text(account.name)
@@ -44,7 +47,7 @@ struct AccountsView: View {
                 .overlay(VaultTheme.border)
 
             HStack {
-                VStack(alignment: .leading, spacing: 4) {
+                VStack(alignment: .leading, spacing: VaultTheme.grid(1)) {
                     Text("Balance")
                         .font(.caption)
                         .foregroundStyle(VaultTheme.textMuted)
@@ -57,7 +60,7 @@ struct AccountsView: View {
 
                 Spacer()
 
-                VStack(alignment: .trailing, spacing: 4) {
+                VStack(alignment: .trailing, spacing: VaultTheme.grid(1)) {
                     Text("Today")
                         .font(.caption)
                         .foregroundStyle(VaultTheme.textMuted)

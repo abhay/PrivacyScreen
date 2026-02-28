@@ -11,22 +11,13 @@ public struct PrivacyDebugOverlay: View {
 
     public init() {}
 
-    private var threatColor: Color {
-        switch privacyManager.threatLevel {
-        case .clear: .green
-        case .cautious: .yellow
-        case .threatened: .orange
-        case .locked: .red
-        }
-    }
-
     public var body: some View {
         let info = privacyManager.debugInfo
 
         VStack(alignment: .leading, spacing: 4) {
             HStack(spacing: 6) {
                 Circle()
-                    .fill(threatColor)
+                    .fill(privacyManager.threatLevel.color)
                     .frame(width: 8, height: 8)
                 Text(privacyManager.threatLevel.rawValue.description)
                     .fontWeight(.semibold)
@@ -61,7 +52,7 @@ public struct PrivacyDebugOverlay: View {
     }
 }
 
-// MARK: - ThreatLevel Description
+// MARK: - ThreatLevel + SwiftUI
 
 extension ThreatLevel: CustomStringConvertible {
     public var description: String {
@@ -70,6 +61,16 @@ extension ThreatLevel: CustomStringConvertible {
         case .cautious: "Cautious"
         case .threatened: "Threatened"
         case .locked: "Locked"
+        }
+    }
+
+    /// SwiftUI color for visual threat level indication.
+    public var color: Color {
+        switch self {
+        case .clear: .green
+        case .cautious: .yellow
+        case .threatened: .orange
+        case .locked: .red
         }
     }
 }

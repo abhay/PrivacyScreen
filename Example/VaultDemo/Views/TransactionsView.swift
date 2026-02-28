@@ -25,7 +25,7 @@ struct TransactionsView: View {
     }
 
     private func transactionRow(_ transaction: Transaction) -> some View {
-        HStack(spacing: 12) {
+        HStack(spacing: VaultTheme.grid(3)) {
             Image(systemName: transaction.icon)
                 .font(.system(size: 18, weight: .medium))
                 .foregroundStyle(transaction.isCredit ? VaultTheme.positive : VaultTheme.textSecondary)
@@ -58,6 +58,6 @@ struct TransactionsView: View {
                 .foregroundStyle(transaction.isCredit ? VaultTheme.positive : .white)
                 .privacySensitive(level: .high)
         }
-        .padding(.vertical, 12)
+        .padding(.vertical, VaultTheme.grid(3))
     }
 }

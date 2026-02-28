@@ -92,7 +92,7 @@ struct CardView: View {
         .frame(maxWidth: .infinity)
         .frame(height: 220)
         .background(
-            card.network == .visa ? VaultTheme.cardGradientBlue : VaultTheme.cardGradientDark,
+            card.theme.gradient,
             in: RoundedRectangle(cornerRadius: VaultTheme.cornerRadius)
         )
         .overlay(

@@ -49,12 +49,12 @@ struct SettingsView: View {
     }
 
     private func settingsToggle(icon: String, title: String, subtitle: String, isOn: Binding<Bool>) -> some View {
-        HStack(spacing: 12) {
+        HStack(spacing: VaultTheme.grid(3)) {
             Image(systemName: icon)
                 .font(.system(size: 18, weight: .medium))
                 .foregroundStyle(VaultTheme.accent)
                 .frame(width: 36, height: 36)
-                .background(VaultTheme.accent.opacity(0.12), in: RoundedRectangle(cornerRadius: 8))
+                .background(VaultTheme.accent.opacity(0.12), in: RoundedRectangle(cornerRadius: VaultTheme.grid(2)))
 
             VStack(alignment: .leading, spacing: 2) {
                 Text(title)
@@ -72,14 +72,14 @@ struct SettingsView: View {
                 .labelsHidden()
                 .tint(VaultTheme.accent)
         }
-        .padding(.vertical, 8)
+        .padding(.vertical, VaultTheme.grid(2))
     }
 
     // MARK: - Sensitivity Controls
 
     private var sensitivityControls: some View {
-        VStack(spacing: 16) {
-            VStack(alignment: .leading, spacing: 8) {
+        VStack(spacing: VaultTheme.paddingMedium) {
+            VStack(alignment: .leading, spacing: VaultTheme.grid(2)) {
                 HStack {
                     Text("Tilt Sensitivity")
                         .font(.subheadline.weight(.medium))
@@ -106,7 +106,7 @@ struct SettingsView: View {
 
             Divider().overlay(VaultTheme.border)
 
-            VStack(alignment: .leading, spacing: 8) {
+            VStack(alignment: .leading, spacing: VaultTheme.grid(2)) {
                 HStack {
                     Text("Gaze Sensitivity")
                         .font(.subheadline.weight(.medium))
@@ -137,7 +137,7 @@ struct SettingsView: View {
     // MARK: - Info Section
 
     private var infoSection: some View {
-        VStack(alignment: .leading, spacing: 12) {
+        VStack(alignment: .leading, spacing: VaultTheme.grid(3)) {
             Label("How It Works", systemImage: "info.circle.fill")
                 .font(.subheadline.weight(.semibold))
                 .foregroundStyle(VaultTheme.accent)
@@ -188,6 +188,7 @@ struct SettingsView: View {
         Button {
             privacyManager.simulateThreat(duration: 3.0)
         } label: {
+
             HStack {
                 Image(systemName: "exclamationmark.shield.fill")
                     .font(.system(size: 18))
@@ -206,5 +207,6 @@ struct SettingsView: View {
                 in: RoundedRectangle(cornerRadius: VaultTheme.cornerRadiusSmall)
             )
         }
+        .buttonStyle(VaultButtonStyle())
     }
 }

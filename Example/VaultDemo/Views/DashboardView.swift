@@ -24,7 +24,7 @@ struct DashboardView: View {
     // MARK: - Hero Balance
 
     private var heroBalanceSection: some View {
-        VStack(spacing: 8) {
+        VStack(spacing: VaultTheme.grid(2)) {
             Text("Total Balance")
                 .font(.subheadline)
                 .foregroundStyle(VaultTheme.textMuted)
@@ -41,7 +41,7 @@ struct DashboardView: View {
 
             sparklineChart
                 .frame(height: 60)
-                .padding(.top, 8)
+                .padding(.top, VaultTheme.grid(2))
                 .privacySensitive(level: .high)
         }
         .frame(maxWidth: .infinity)
@@ -120,7 +120,7 @@ struct DashboardView: View {
     }
 
     private func quickAction(icon: String, label: String) -> some View {
-        VStack(spacing: 8) {
+        VStack(spacing: VaultTheme.grid(2)) {
             Image(systemName: icon)
                 .font(.system(size: 20, weight: .medium))
                 .foregroundStyle(VaultTheme.accent)
@@ -137,7 +137,7 @@ struct DashboardView: View {
     // MARK: - Accounts Section
 
     private var accountsSection: some View {
-        VStack(alignment: .leading, spacing: 12) {
+        VStack(alignment: .leading, spacing: VaultTheme.grid(3)) {
             Text("Accounts")
                 .font(.headline)
                 .foregroundStyle(.white)
@@ -149,7 +149,7 @@ struct DashboardView: View {
     }
 
     private func accountRow(_ account: Account) -> some View {
-        HStack(spacing: 12) {
+        HStack(spacing: VaultTheme.grid(3)) {
             Image(systemName: account.icon)
                 .font(.system(size: 18, weight: .medium))
                 .foregroundStyle(VaultTheme.accent)
@@ -187,7 +187,7 @@ struct DashboardView: View {
     // MARK: - Recent Activity Section
 
     private var recentActivitySection: some View {
-        VStack(alignment: .leading, spacing: 12) {
+        VStack(alignment: .leading, spacing: VaultTheme.grid(3)) {
             HStack {
                 Text("Recent Activity")
                     .font(.headline)
@@ -205,7 +205,7 @@ struct DashboardView: View {
     }
 
     private func transactionRow(_ transaction: Transaction) -> some View {
-        HStack(spacing: 12) {
+        HStack(spacing: VaultTheme.grid(3)) {
             Image(systemName: transaction.icon)
                 .font(.system(size: 16, weight: .medium))
                 .foregroundStyle(transaction.isCredit ? VaultTheme.positive : VaultTheme.textSecondary)

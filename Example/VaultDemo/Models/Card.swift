@@ -1,5 +1,13 @@
 import Foundation
 
+// MARK: - CardTheme
+
+/// Visual theme for a payment card. SwiftUI rendering extensions live in VaultTheme.swift.
+enum CardTheme {
+    case blue
+    case slate
+}
+
 // MARK: - Card
 
 struct Card: Identifiable {
@@ -10,6 +18,7 @@ struct Card: Identifiable {
     let cvv: String
     let type: CardType
     let network: CardNetwork
+    let theme: CardTheme
 
     enum CardType: String {
         case credit = "Credit"
@@ -27,7 +36,6 @@ struct Card: Identifiable {
     }
 
     var formattedNumber: String {
-        // Insert spaces every 4 digits
         var result = ""
         for (index, char) in cardNumber.filter(\.isNumber).enumerated() {
             if index > 0, index % 4 == 0 { result += " " }
@@ -47,7 +55,8 @@ extension Card {
             expiryDate: "09/28",
             cvv: "847",
             type: .credit,
-            network: .visa
+            network: .visa,
+            theme: .blue
         ),
         Card(
             cardNumber: "5291048273619405",
@@ -55,7 +64,8 @@ extension Card {
             expiryDate: "03/27",
             cvv: "312",
             type: .debit,
-            network: .mastercard
+            network: .mastercard,
+            theme: .slate
         ),
     ]
 }

@@ -5,6 +5,29 @@ import SwiftUI
 /// Design system constants for the VaultDemo app.
 enum VaultTheme {
 
+    // MARK: - Spacing
+
+    /// Returns a multiple of the 4-point base grid unit.
+    static func grid(_ n: Int) -> CGFloat {
+        CGFloat(n) * 4
+    }
+
+    static var paddingSmall: CGFloat {
+        grid(2)
+    } // 8
+    static var paddingMedium: CGFloat {
+        grid(4)
+    } // 16
+    static var paddingLarge: CGFloat {
+        grid(6)
+    } // 24
+    static var cornerRadius: CGFloat {
+        grid(4)
+    } // 16
+    static var cornerRadiusSmall: CGFloat {
+        grid(3)
+    } // 12
+
     // MARK: - Colors
 
     /// Primary background color (#0A0A0F).
@@ -33,34 +56,6 @@ enum VaultTheme {
 
     /// Secondary text color.
     static let textSecondary = Color.white.opacity(0.7)
-
-    // MARK: - Card Gradients
-
-    static let cardGradientBlue = LinearGradient(
-        colors: [
-            Color(red: 0.2, green: 0.3, blue: 0.8),
-            Color(red: 0.4, green: 0.2, blue: 0.7),
-        ],
-        startPoint: .topLeading,
-        endPoint: .bottomTrailing
-    )
-
-    static let cardGradientDark = LinearGradient(
-        colors: [
-            Color(red: 0.15, green: 0.15, blue: 0.2),
-            Color(red: 0.1, green: 0.1, blue: 0.15),
-        ],
-        startPoint: .topLeading,
-        endPoint: .bottomTrailing
-    )
-
-    // MARK: - Spacing
-
-    static let paddingSmall: CGFloat = 8
-    static let paddingMedium: CGFloat = 16
-    static let paddingLarge: CGFloat = 24
-    static let cornerRadius: CGFloat = 16
-    static let cornerRadiusSmall: CGFloat = 12
 
     // MARK: - Fonts
 
@@ -93,6 +88,46 @@ enum VaultTheme {
         let pct = (amount / (total - amount)) * 100
         let sign = amount >= 0 ? "+" : ""
         return "\(sign)\(formatCurrency(amount)) (\(String(format: "%.2f", pct))%)"
+    }
+}
+
+// MARK: - CardTheme
+
+extension CardTheme {
+    /// The gradient fill used to render this card.
+    var gradient: LinearGradient {
+        switch self {
+        case .blue:
+            LinearGradient(
+                colors: [
+                    Color(red: 0.2, green: 0.3, blue: 0.8),
+                    Color(red: 0.4, green: 0.2, blue: 0.7),
+                ],
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            )
+        case .slate:
+            LinearGradient(
+                colors: [
+                    Color(red: 0.15, green: 0.15, blue: 0.2),
+                    Color(red: 0.1, green: 0.1, blue: 0.15),
+                ],
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            )
+        }
+    }
+}
+
+// MARK: - VaultButtonStyle
+
+/// Button style with scale and opacity press feedback.
+struct VaultButtonStyle: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .opacity(configuration.isPressed ? 0.7 : 1.0)
+            .scaleEffect(configuration.isPressed ? 0.97 : 1.0)
+            .animation(.easeInOut(duration: 0.1), value: configuration.isPressed)
     }
 }
 
