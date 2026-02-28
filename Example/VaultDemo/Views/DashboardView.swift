@@ -1,5 +1,5 @@
-import SwiftUI
 import PrivacyScreen
+import SwiftUI
 
 // MARK: - DashboardView
 
@@ -54,7 +54,7 @@ struct DashboardView: View {
         let dataPoints: [Double] = [
             168_200, 170_450, 169_800, 172_100, 171_500, 174_300,
             173_800, 176_900, 175_200, 178_400, 177_100, 180_300,
-            179_500, 181_200, 182_800, 181_900, 183_400, 184_229
+            179_500, 181_200, 182_800, 181_900, 183_400, 184_229,
         ]
 
         let minVal = dataPoints.min() ?? 0

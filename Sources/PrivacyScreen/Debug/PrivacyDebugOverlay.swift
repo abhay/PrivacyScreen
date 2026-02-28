@@ -13,10 +13,10 @@ public struct PrivacyDebugOverlay: View {
 
     private var threatColor: Color {
         switch privacyManager.threatLevel {
-        case .clear: return .green
-        case .cautious: return .yellow
-        case .threatened: return .orange
-        case .locked: return .red
+        case .clear: .green
+        case .cautious: .yellow
+        case .threatened: .orange
+        case .locked: .red
         }
     }
 
@@ -66,10 +66,10 @@ public struct PrivacyDebugOverlay: View {
 extension ThreatLevel: CustomStringConvertible {
     public var description: String {
         switch self {
-        case .clear: return "Clear"
-        case .cautious: return "Cautious"
-        case .threatened: return "Threatened"
-        case .locked: return "Locked"
+        case .clear: "Clear"
+        case .cautious: "Cautious"
+        case .threatened: "Threatened"
+        case .locked: "Locked"
         }
     }
 }

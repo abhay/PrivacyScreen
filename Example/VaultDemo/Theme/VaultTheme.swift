@@ -39,7 +39,7 @@ enum VaultTheme {
     static let cardGradientBlue = LinearGradient(
         colors: [
             Color(red: 0.2, green: 0.3, blue: 0.8),
-            Color(red: 0.4, green: 0.2, blue: 0.7)
+            Color(red: 0.4, green: 0.2, blue: 0.7),
         ],
         startPoint: .topLeading,
         endPoint: .bottomTrailing
@@ -48,7 +48,7 @@ enum VaultTheme {
     static let cardGradientDark = LinearGradient(
         colors: [
             Color(red: 0.15, green: 0.15, blue: 0.2),
-            Color(red: 0.1, green: 0.1, blue: 0.15)
+            Color(red: 0.1, green: 0.1, blue: 0.15),
         ],
         startPoint: .topLeading,
         endPoint: .bottomTrailing
@@ -101,8 +101,7 @@ enum VaultTheme {
 extension View {
     /// Apply a VaultTheme card style.
     func vaultCard() -> some View {
-        self
-            .padding(VaultTheme.paddingMedium)
+        padding(VaultTheme.paddingMedium)
             .background(VaultTheme.cardBackground, in: RoundedRectangle(cornerRadius: VaultTheme.cornerRadius))
             .overlay(
                 RoundedRectangle(cornerRadius: VaultTheme.cornerRadius)

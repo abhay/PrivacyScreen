@@ -14,9 +14,9 @@ public enum SensitivityLevel: Sendable {
     /// The threat level at which this sensitivity starts hiding content.
     var triggerLevel: ThreatLevel {
         switch self {
-        case .low: return .locked
-        case .medium: return .threatened
-        case .high: return .cautious
+        case .low: .locked
+        case .medium: .threatened
+        case .high: .cautious
         }
     }
 }

@@ -1,0 +1,12 @@
+--indent 4
+--maxwidth 120
+--wraparguments before-first
+--wrapparameters before-first
+--wrapcollections before-first
+--closingparen balanced
+--self remove
+--stripunusedargs closure-only
+--ifdef no-indent
+--disable blankLinesAtStartOfScope
+--disable blankLinesAtEndOfScope
+--swiftversion 5.9

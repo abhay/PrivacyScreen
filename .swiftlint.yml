@@ -1,0 +1,27 @@
+# SwiftLint Configuration
+
+included:
+  - Sources
+  - Tests
+  - Example
+
+excluded:
+  - .build
+  - DerivedData
+  - .swiftpm
+
+line_length:
+  warning: 120
+  error: 150
+
+disabled_rules:
+  - trailing_comma
+  - opening_brace
+  - identifier_name
+  - type_name
+  - nesting
+  - function_body_length
+  - cyclomatic_complexity
+  - large_tuple
+  - file_length
+  - type_body_length

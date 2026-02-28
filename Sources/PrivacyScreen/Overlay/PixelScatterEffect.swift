@@ -21,8 +21,8 @@ struct PixelScatterEffect: View {
                 let cols = Int(size.width / cellSize)
                 let rows = Int(size.height / cellSize)
 
-                for row in 0..<rows {
-                    for col in 0..<cols {
+                for row in 0 ..< rows {
+                    for col in 0 ..< cols {
                         // Pseudorandom based on position + time for shimmer
                         let seed = Double(row * 7919 + col * 6271)
                         let phase = sin(seed * 0.001 + time * 2.0)

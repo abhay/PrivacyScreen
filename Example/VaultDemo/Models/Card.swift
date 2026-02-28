@@ -29,8 +29,8 @@ struct Card: Identifiable {
     var formattedNumber: String {
         // Insert spaces every 4 digits
         var result = ""
-        for (index, char) in cardNumber.filter({ $0.isNumber }).enumerated() {
-            if index > 0 && index % 4 == 0 { result += " " }
+        for (index, char) in cardNumber.filter(\.isNumber).enumerated() {
+            if index > 0, index % 4 == 0 { result += " " }
             result.append(char)
         }
         return result
@@ -56,6 +56,6 @@ extension Card {
             cvv: "312",
             type: .debit,
             network: .mastercard
-        )
+        ),
     ]
 }

@@ -28,8 +28,8 @@ extension Account {
             type: .checking,
             accountNumber: "4821 7293 0048 4281",
             maskedNumber: "••••4281",
-            balance: 42_847.33,
-            dailyChange: 1_247.50,
+            balance: 42847.33,
+            dailyChange: 1247.50,
             icon: "building.columns.fill"
         ),
         Account(
@@ -37,7 +37,7 @@ extension Account {
             type: .savings,
             accountNumber: "7382 0194 5528 9103",
             maskedNumber: "••••9103",
-            balance: 89_412.67,
+            balance: 89412.67,
             dailyChange: 412.83,
             icon: "banknote.fill"
         ),
@@ -46,10 +46,10 @@ extension Account {
             type: .investment,
             accountNumber: "9201 4837 2910 6547",
             maskedNumber: "••••6547",
-            balance: 51_969.47,
-            dailyChange: 1_187.00,
+            balance: 51969.47,
+            dailyChange: 1187.00,
             icon: "chart.line.uptrend.xyaxis"
-        )
+        ),
     ]
 
     static var totalBalance: Double {

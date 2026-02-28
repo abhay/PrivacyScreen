@@ -1,34 +1,34 @@
 import ARKit
-import CoreMotion
 import Combine
+import CoreMotion
 import SwiftUI
 
 // MARK: - PowerState
 
 /// Power management states controlling ARKit and accelerometer duty cycling.
 public enum PowerState: String, CaseIterable, Sendable {
-    case dormant  // ~5mW:  accel 5Hz, ARKit OFF
-    case idle     // ~30mW: accel 15Hz, ARKit samples 0.5s every 3s
-    case active   // ~180mW: accel 30Hz, ARKit continuous 60fps
-    case alert    // ~180mW: same as active, locked until threat clears + 5s cooldown
+    case dormant // ~5mW:  accel 5Hz, ARKit OFF
+    case idle // ~30mW: accel 15Hz, ARKit samples 0.5s every 3s
+    case active // ~180mW: accel 30Hz, ARKit continuous 60fps
+    case alert // ~180mW: same as active, locked until threat clears + 5s cooldown
 
     /// Estimated power consumption in milliwatts.
     public var estimatedPowerMW: Int {
         switch self {
-        case .dormant: return 5
-        case .idle: return 30
-        case .active: return 180
-        case .alert: return 180
+        case .dormant: 5
+        case .idle: 30
+        case .active: 180
+        case .alert: 180
         }
     }
 
     /// Accelerometer update frequency for this state.
     public var motionHz: Double {
         switch self {
-        case .dormant: return 5
-        case .idle: return 15
-        case .active: return 30
-        case .alert: return 30
+        case .dormant: 5
+        case .idle: 15
+        case .active: 30
+        case .alert: 30
         }
     }
 }
@@ -85,7 +85,7 @@ public final class PowerThrottler: ObservableObject {
     // MARK: - Configuration
 
     /// Tunable power management parameters.
-    public var config: PowerThrottlerConfig = PowerThrottlerConfig()
+    public var config: PowerThrottlerConfig = .init()
 
     // MARK: - Private State
 
@@ -94,8 +94,8 @@ public final class PowerThrottler: ObservableObject {
     private weak var arSession: ARSession?
 
     private var threatCancellable: AnyCancellable?
-    private var lastMotionTime: Date = Date()
-    private var lastSignificantMotionTime: Date = Date()
+    private var lastMotionTime: Date = .init()
+    private var lastSignificantMotionTime: Date = .init()
     private var stillnessTimer: Timer?
     private var idleSamplingTimer: Timer?
     private var alertCooldownTimer: Timer?
@@ -113,7 +113,7 @@ public final class PowerThrottler: ObservableObject {
     /// Must be called after both objects are initialized. The throttler will
     /// forward all motion data to the manager and control its AR session lifecycle.
     public func attach(to manager: PrivacyManager, arSession: ARSession) {
-        self.privacyManager = manager
+        privacyManager = manager
         self.arSession = arSession
 
         // Observe threat level changes
@@ -151,7 +151,7 @@ public final class PowerThrottler: ObservableObject {
 
     private func transitionTo(_ newState: PowerState) {
         let oldState = powerState
-        if newState == oldState && isRunning {
+        if newState == oldState, isRunning {
             return
         }
 
@@ -255,22 +255,24 @@ public final class PowerThrottler: ObservableObject {
     private func handleThreatLevelChange(_ level: ThreatLevel) {
         guard isRunning else { return }
 
-        if level >= .threatened && powerState != .alert {
+        if level >= .threatened, powerState != .alert {
             transitionTo(.alert)
-        } else if level < .threatened && powerState == .alert {
+        } else if level < .threatened, powerState == .alert {
             // Start cooldown before transitioning out of alert
             alertCooldownTimer?.invalidate()
-            alertCooldownTimer = Timer.scheduledTimer(withTimeInterval: config.alertCooldown, repeats: false) { [weak self] _ in
-                guard let self else { return }
-                Task { @MainActor in
-                    // Only transition if still in alert and threat has cleared
-                    if self.powerState == .alert,
-                       let manager = self.privacyManager,
-                       manager.threatLevel < .threatened {
-                        self.transitionTo(.active)
+            alertCooldownTimer = Timer
+                .scheduledTimer(withTimeInterval: config.alertCooldown, repeats: false) { [weak self] _ in
+                    guard let self else { return }
+                    Task { @MainActor in
+                        // Only transition if still in alert and threat has cleared
+                        if self.powerState == .alert,
+                           let manager = self.privacyManager,
+                           manager.threatLevel < .threatened
+                        {
+                            self.transitionTo(.active)
+                        }
                     }
                 }
-            }
         }
     }
 

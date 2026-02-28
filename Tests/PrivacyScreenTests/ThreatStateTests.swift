@@ -1,5 +1,5 @@
-import Testing
 @testable import PrivacyScreen
+import Testing
 
 // MARK: - ThreatState Tests
 

@@ -1,6 +1,6 @@
 import ARKit
-import CoreMotion
 import Combine
+import CoreMotion
 import SwiftUI
 
 // MARK: - Configuration
@@ -61,7 +61,7 @@ public final class PrivacyManager: NSObject, ObservableObject {
     // MARK: - Configuration
 
     /// Tunable detection parameters.
-    public var config: PrivacyManagerConfig = PrivacyManagerConfig()
+    public var config: PrivacyManagerConfig = .init()
 
     // MARK: - ARKit
 
@@ -91,7 +91,7 @@ public final class PrivacyManager: NSObject, ObservableObject {
 
     // MARK: - Initialization
 
-    public override init() {
+    override public init() {
         super.init()
         arSession.delegate = self
     }
@@ -206,8 +206,8 @@ public final class PrivacyManager: NSObject, ObservableObject {
         let rotationRate = motion.rotationRate
         let tiltRate = Float(sqrt(
             rotationRate.x * rotationRate.x +
-            rotationRate.y * rotationRate.y +
-            rotationRate.z * rotationRate.z
+                rotationRate.y * rotationRate.y +
+                rotationRate.z * rotationRate.z
         ) * 180.0 / .pi)
 
         updateThreatState(tiltAngle: tiltAngle, tiltRate: tiltRate)
@@ -302,7 +302,7 @@ public final class PrivacyManager: NSObject, ObservableObject {
 // MARK: - ARSessionDelegate
 
 extension PrivacyManager: ARSessionDelegate {
-    nonisolated public func session(_ session: ARSession, didUpdate anchors: [ARAnchor]) {
+    public nonisolated func session(_ session: ARSession, didUpdate anchors: [ARAnchor]) {
         let faceAnchors = anchors.compactMap { $0 as? ARFaceAnchor }
         guard !faceAnchors.isEmpty else { return }
         Task { @MainActor in

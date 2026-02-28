@@ -97,7 +97,7 @@ extension Transaction {
                 date: calendar.date(byAdding: .day, value: -5, to: now)!,
                 icon: "cloud.fill",
                 isCredit: false
-            )
+            ),
         ]
     }()
 }

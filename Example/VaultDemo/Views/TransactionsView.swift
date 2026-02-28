@@ -1,5 +1,5 @@
-import SwiftUI
 import PrivacyScreen
+import SwiftUI
 
 // MARK: - TransactionsView
 

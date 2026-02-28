@@ -29,6 +29,17 @@ xcodebuild build -project Example/VaultDemo/VaultDemo.xcodeproj \
 # Install and launch on simulator
 xcrun simctl install booted path/to/VaultDemo.app
 xcrun simctl launch booted com.vaultdemo.app
+
+# Lint & format
+swiftlint lint Sources/ Tests/ Example/
+swiftformat --lint Sources/ Tests/ Example/
+
+# Auto-fix lint/format issues
+swiftformat Sources/ Tests/ Example/
+swiftlint lint --fix Sources/ Tests/ Example/
+
+# Run pre-commit hooks manually
+lefthook run pre-commit
 ```
 
 ARFaceTrackingConfiguration requires a physical device with TrueDepth camera (iPhone X+). The app runs on simulator but falls back to accelerometer-only mode (face detection disabled, tilt still works). Use Settings > "Simulate Threat" to test the full privacy overlay on simulator.

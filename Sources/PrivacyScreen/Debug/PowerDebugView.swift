@@ -13,10 +13,10 @@ public struct PowerDebugView: View {
 
     private var stateColor: Color {
         switch powerThrottler.powerState {
-        case .dormant: return .gray
-        case .idle: return .blue
-        case .active: return .green
-        case .alert: return .red
+        case .dormant: .gray
+        case .idle: .blue
+        case .active: .green
+        case .alert: .red
         }
     }
 

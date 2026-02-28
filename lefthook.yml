@@ -1,0 +1,24 @@
+pre-commit:
+  commands:
+    swiftformat-fix:
+      glob: "*.swift"
+      run: >
+        swiftformat {staged_files} &&
+        git add {staged_files}
+      stage_fixed: true
+    swiftlint-fix:
+      glob: "*.swift"
+      run: >
+        swiftlint lint --fix {staged_files} &&
+        git add {staged_files}
+      stage_fixed: true
+    swiftlint-check:
+      glob: "*.swift"
+      run: swiftlint lint --strict {staged_files}
+
+pre-push:
+  commands:
+    test:
+      run: >
+        xcodebuild test -scheme PrivacyScreen
+        -destination 'platform=iOS Simulator,name=iPhone 16' -quiet

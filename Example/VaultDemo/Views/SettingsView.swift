@@ -1,5 +1,5 @@
-import SwiftUI
 import PrivacyScreen
+import SwiftUI
 
 // MARK: - SettingsView
 
@@ -92,7 +92,7 @@ struct SettingsView: View {
                         .foregroundStyle(VaultTheme.textSecondary)
                 }
 
-                Slider(value: $tiltSensitivity, in: 10...50, step: 5)
+                Slider(value: $tiltSensitivity, in: 10 ... 50, step: 5)
                     .tint(VaultTheme.accent)
                     .onChange(of: tiltSensitivity) { _, newValue in
                         privacyManager.config.tiltThresholdLow = Float(newValue)
@@ -119,7 +119,7 @@ struct SettingsView: View {
                         .foregroundStyle(VaultTheme.textSecondary)
                 }
 
-                Slider(value: $gazeSensitivity, in: 0.1...0.6, step: 0.05)
+                Slider(value: $gazeSensitivity, in: 0.1 ... 0.6, step: 0.05)
                     .tint(VaultTheme.accent)
                     .onChange(of: gazeSensitivity) { _, newValue in
                         privacyManager.config.gazeThresholdLow = Float(newValue)
