@@ -152,6 +152,13 @@ public final class PrivacyManager: NSObject, ObservableObject {
 
     // MARK: - Simulate Threat (for testing)
 
+    /// Set an arbitrary threat level with animation. Useful for demos, previews, and testing.
+    public func simulateThreatLevel(_ level: ThreatLevel) {
+        withAnimation(.easeInOut(duration: 0.3)) {
+            threatLevel = level
+        }
+    }
+
     /// Manually trigger a locked state for testing purposes.
     public func simulateThreat(duration: TimeInterval = 3.0) {
         let previousEnabled = isEnabled

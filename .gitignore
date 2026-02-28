@@ -13,3 +13,6 @@ DerivedData/
 
 # Claude Code
 .claude/
+
+# Stray simulator recordings
+/*.mp4

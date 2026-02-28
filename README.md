@@ -1,8 +1,13 @@
 # PrivacyScreen
 
+[![Swift 5.9+](https://img.shields.io/badge/Swift-5.9+-F05138?logo=swift&logoColor=white)](https://swift.org)
+[![iOS 17+](https://img.shields.io/badge/iOS-17+-000000?logo=apple&logoColor=white)](https://developer.apple.com/ios/)
+[![SPM Compatible](https://img.shields.io/badge/SPM-Compatible-blue)](https://swift.org/package-manager/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
 A Swift Package library that simulates hardware-level privacy screen protection using ARKit face tracking and CoreMotion sensor fusion. When someone looks over your shoulder, your sensitive content blurs. When a threat clears, it fades back.
 
-**VaultDemo** is a dark-themed finance app that demonstrates the library on realistic financial UI.
+https://github.com/user-attachments/assets/6d7dcc35-bb0e-4d51-8137-27a9f2f22932
 
 ---
 
@@ -55,6 +60,17 @@ Normal view                  .cautious                    .locked
 ```
 
 The overlay always uses `.allowsHitTesting(false)` — the UI remains fully interactive under the blur.
+
+<p align="center">
+  <img src="media/screenshot_clear.jpg" width="180" alt="Clear — all data visible">
+  <img src="media/screenshot_cautious.jpg" width="180" alt="Cautious — balances blurred">
+  <img src="media/screenshot_threatened.jpg" width="180" alt="Threatened — names and dates hidden">
+  <img src="media/screenshot_locked.jpg" width="180" alt="Locked — full privacy shield">
+</p>
+
+<p align="center">
+  <code>.clear</code> &nbsp;&rarr;&nbsp; <code>.cautious</code> &nbsp;&rarr;&nbsp; <code>.threatened</code> &nbsp;&rarr;&nbsp; <code>.locked</code>
+</p>
 
 ### Sensitivity mapping
 
@@ -203,6 +219,16 @@ ARKit face tracking requires a physical device with a TrueDepth camera (iPhone X
 
 - Face tracking is disabled; tilt detection still works
 - Use **Settings → Simulate Threat** to force `.locked` state for 3 seconds and see the full overlay
+
+### Demo mode
+
+Launch with `-demo` to run a scripted walkthrough of all threat levels with captions — useful for recording videos:
+
+```bash
+xcrun simctl launch booted com.vaultdemo.app -demo
+```
+
+Launch with `-screenshots` for the same sequence without captions (clean screenshots).
 
 ---
 
