@@ -11,5 +11,5 @@ DerivedData/
 # macOS
 .DS_Store
 
-# Temporary files
-.commit
+# Claude Code
+.claude/
